@@ -6,17 +6,19 @@ public class ProductoXVenta {
 	private Producto producto;
 	private int cantidad;
 	private float total;
-
+	private float precioUnitario;
+	
 	public ProductoXVenta() {
 		super();
 	}
 
-	public ProductoXVenta(int idProductoXVenta, Producto producto, int cantidad, float total) {
+	public ProductoXVenta(int idProductoXVenta, Producto producto, int cantidad, float total, float precioUnitario) {
 		super();
 		this.idProductoXVenta = idProductoXVenta;
 		this.producto = producto;
 		this.cantidad = cantidad;
 		this.total = total;
+		this.precioUnitario = precioUnitario;
 	}
 
 	public int getIdProductoXVenta() {
@@ -51,10 +53,18 @@ public class ProductoXVenta {
 		this.total = total;
 	}
 
+	public float getPrecioUnitario() {
+		return precioUnitario;
+	}
+
+	public void setPrecioUnitario(float precioUnitario) {
+		this.precioUnitario = precioUnitario;
+	}
+
 	@Override
 	public String toString() {
 		return "ProductoXVenta [idProductoXVenta=" + idProductoXVenta + ", producto=" + producto + ", cantidad="
-				+ cantidad + ", total=" + total + "]";
+				+ cantidad + ", total=" + total + ", precioUnitario=" + precioUnitario + "]";
 	}
 
 }

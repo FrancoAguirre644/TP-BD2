@@ -13,6 +13,7 @@ public class Venta {
 	private Empleado vendedor;
 	private Empleado cobrador;
 	private Sucursal sucursal;
+	private Cliente cliente;
 	private List<ProductoXVenta> productos;
 
 	public Venta() {
@@ -20,7 +21,7 @@ public class Venta {
 	}
 
 	public Venta(int idVenta, LocalDate fecha, String numeroTicket, float totalVenta, String formaDePago,
-			Empleado vendedor, Empleado cobrador, Sucursal sucursal, List<ProductoXVenta> productos) {
+			Empleado vendedor, Empleado cobrador, Sucursal sucursal, List<ProductoXVenta> productos, Cliente cliente) {
 		super();
 		this.idVenta = idVenta;
 		this.fecha = fecha;
@@ -31,6 +32,7 @@ public class Venta {
 		this.cobrador = cobrador;
 		this.sucursal = sucursal;
 		this.productos = productos;
+		this.cliente = cliente;
 	}
 
 	public int getIdVenta() {
@@ -104,12 +106,21 @@ public class Venta {
 	public void setProductos(List<ProductoXVenta> productos) {
 		this.productos = productos;
 	}
+	
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 
 	@Override
 	public String toString() {
 		return "Venta [idVenta=" + idVenta + ", fecha=" + fecha + ", numeroTicket=" + numeroTicket + ", totalVenta="
 				+ totalVenta + ", formaDePago=" + formaDePago + ", vendedor=" + vendedor + ", cobrador=" + cobrador
-				+ ", sucursal=" + sucursal + ", productos=" + productos + "]";
+				+ ", sucursal=" + sucursal + ", cliente=" + cliente + ", productos=" + productos + "]";
 	}
 
+	
 }
