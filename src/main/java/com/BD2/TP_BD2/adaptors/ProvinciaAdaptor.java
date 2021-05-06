@@ -1,4 +1,4 @@
-package com.BD2.TP_BD2.adaptor;
+package com.BD2.TP_BD2.adaptors;
 
 import com.BD2.TP_BD2.models.Provincia;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -11,7 +11,7 @@ public class ProvinciaAdaptor {
     	    	
 		DBObject provinciaCreada = new BasicDBObject("_id", provincia.getIdProvincia())
 	      .append("nombre", provincia.getNombre());
-
+		
 		return provinciaCreada;
   }
     

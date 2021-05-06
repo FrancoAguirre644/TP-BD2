@@ -1,10 +1,13 @@
 package com.BD2.TP_BD2.models;
 
+import java.util.List;
+
 public class Sucursal {
 
 	private int idSucursal;
 	private Domicilio domicilio;
 	private String puntoDeVenta;
+	private List<Empleado> empleados;
 
 	public Sucursal() {
 		super();
@@ -15,6 +18,22 @@ public class Sucursal {
 		this.idSucursal = idSucursal;
 		this.domicilio = domicilio;
 		this.puntoDeVenta = puntoDeVenta;
+	}
+	
+	public Sucursal(int idSucursal, Domicilio domicilio, String puntoDeVenta, List<Empleado> empleados) {
+		super();
+		this.idSucursal = idSucursal;
+		this.domicilio = domicilio;
+		this.puntoDeVenta = puntoDeVenta;
+		this.empleados = empleados;
+	}
+
+	public List<Empleado> getEmpleados() {
+		return empleados;
+	}
+
+	public void setEmpleados(List<Empleado> empleados) {
+		this.empleados = empleados;
 	}
 
 	public int getIdSucursal() {

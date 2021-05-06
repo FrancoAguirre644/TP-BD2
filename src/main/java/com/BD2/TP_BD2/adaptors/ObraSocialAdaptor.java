@@ -1,4 +1,4 @@
-package com.BD2.TP_BD2.adaptor;
+package com.BD2.TP_BD2.adaptors;
 
 import com.BD2.TP_BD2.models.ObraSocial;
 import com.fasterxml.jackson.core.JsonProcessingException;
