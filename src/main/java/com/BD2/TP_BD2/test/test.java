@@ -1,6 +1,7 @@
 package com.BD2.TP_BD2.test;
 
 import java.net.UnknownHostException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,13 +10,17 @@ import com.BD2.TP_BD2.adaptors.EmpleadoAdaptor;
 import com.BD2.TP_BD2.adaptors.ObraSocialAdaptor;
 import com.BD2.TP_BD2.adaptors.SucursalAdaptor;
 import com.BD2.TP_BD2.adaptors.SucursalWithEmpleadosAdaptor;
+import com.BD2.TP_BD2.adaptors.VentaAdaptor;
 import com.BD2.TP_BD2.models.Cliente;
 import com.BD2.TP_BD2.models.Domicilio;
 import com.BD2.TP_BD2.models.Empleado;
 import com.BD2.TP_BD2.models.Localidad;
 import com.BD2.TP_BD2.models.ObraSocial;
+import com.BD2.TP_BD2.models.Producto;
+import com.BD2.TP_BD2.models.ProductoXVenta;
 import com.BD2.TP_BD2.models.Provincia;
 import com.BD2.TP_BD2.models.Sucursal;
+import com.BD2.TP_BD2.models.Venta;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
@@ -90,6 +95,73 @@ public class test {
 	        collectionSucursal.insert(SucursalWithEmpleadosAdaptor.toDBObject(new Sucursal(4, domicilio3, "10000003", empleados)));
 	        System.out.println(collectionSucursal.findOne(new BasicDBObject("_id", 4)));
 	        
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		LocalDate fecha1=LocalDate.of(2021,5, 1);
+		LocalDate fecha2=LocalDate.of(2021,5, 2);
+		LocalDate fecha3=LocalDate.of(2021,5, 3);
+		LocalDate fecha4=LocalDate.of(2021,5, 4);
+		LocalDate fecha5=LocalDate.of(2021,5, 5);
+		
+		ObraSocial obrasocial1 = new ObraSocial(1,"IOMA");
+		ObraSocial obrasocial2 = new ObraSocial(2,"FEMEBA");
+		ObraSocial obrasocial3 = new ObraSocial(3,"IOSE");
+		ObraSocial obrasocial4 = new ObraSocial(4,"DOSUBA");
+		ObraSocial obrasocial5 = new ObraSocial(5,"SANCOR");
+		
+		
+		
+		
+		List<Cliente> clientes=  new ArrayList<Cliente>();
+		clientes.add(new Cliente(1,"Gonzalez","Esteban",42356798,domicilio1,obrasocial1));
+		clientes.add(new Cliente(2,"Rojas","Ariel",42356798,domicilio1,obrasocial3));
+		clientes.add(new Cliente(3,"Manso","Lucas",42356798,domicilio1,obrasocial5));
+		clientes.add(new Cliente(4,"Gracia","Franco",42356798,domicilio1,obrasocial3));
+		clientes.add(new Cliente(5,"Gomez","Roberto",42356798,domicilio1,obrasocial2));
+		
+		
+		
+		
+		List<Producto> productos=  new ArrayList<Producto>();
+		productos.add(new Producto(33452,"Jarabe","STADA",1250,true));
+		productos.add(new Producto(21345,"Ibupirac","Stiefel",1100,true));
+		productos.add(new Producto(24567,"Crema","Nadia",2500,false));
+		productos.add(new Producto(76345,"Perfume","Primor",2770,false));
+		
+		int cantidad1=26;
+		int cantidad2=33;
+		int cantidad3=24;
+		int cantidad4=15;
+		
+		
+		List<ProductoXVenta> productosXVenta=  new ArrayList<ProductoXVenta>();
+		productosXVenta.add(new ProductoXVenta(1,productos.get(1),cantidad1,productos.get(1).getPrecio()*cantidad1,productos.get(1).getPrecio()));
+		productosXVenta.add(new ProductoXVenta(2,productos.get(2),cantidad1,productos.get(2).getPrecio()*cantidad2,productos.get(2).getPrecio()));
+		productosXVenta.add(new ProductoXVenta(3,productos.get(3),cantidad1,productos.get(3).getPrecio()*cantidad3,productos.get(3).getPrecio()));
+		productosXVenta.add(new ProductoXVenta(4,productos.get(0),cantidad1,productos.get(0).getPrecio()*cantidad4,productos.get(0).getPrecio()));
+		productosXVenta.add(new ProductoXVenta(5,productos.get(2),cantidad1,productos.get(2).getPrecio()*cantidad1,productos.get(2).getPrecio()));
+		
+		float TotalVenta=0;
+		for(ProductoXVenta p : productosXVenta)
+		{
+			TotalVenta+=p.getTotal();
+		}
+		
+		try {
+			MongoClient mongoClient = null;
+			mongoClient = new MongoClient(new MongoClientURI("mongodb://localhost:27017"));
+	        DB database = mongoClient.getDB("TP_BD2");
+	        
+	        DBCollection ventaCollection = database.getCollection("venta");
+	        
+	        ventaCollection.insert(VentaAdaptor.toDBObject(  new Venta(1,null,"34567",TotalVenta,"efectivo",empleados.get(1),empleados.get(2),sucursales.get(1),clientes.get(1),productosXVenta))    );
+	        
+	        
+	   
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

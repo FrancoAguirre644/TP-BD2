@@ -21,7 +21,7 @@ public class Venta {
 	}
 
 	public Venta(int idVenta, LocalDate fecha, String numeroTicket, float totalVenta, String formaDePago,
-			Empleado vendedor, Empleado cobrador, Sucursal sucursal, List<ProductoXVenta> productos, Cliente cliente) {
+			Empleado vendedor, Empleado cobrador, Sucursal sucursal, Cliente cliente, List<ProductoXVenta> productos) {
 		super();
 		this.idVenta = idVenta;
 		this.fecha = fecha;
