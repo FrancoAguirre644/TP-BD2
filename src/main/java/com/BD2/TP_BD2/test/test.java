@@ -158,10 +158,8 @@ public class test {
 	        
 	        DBCollection ventaCollection = database.getCollection("venta");
 	        
-	        ventaCollection.insert(VentaAdaptor.toDBObject(  new Venta(1,null,"34567",TotalVenta,"efectivo",empleados.get(1),empleados.get(2),sucursales.get(1),clientes.get(1),productosXVenta))    );
+	        ventaCollection.insert(VentaAdaptor.toDBObject(  new Venta(1, LocalDate.now(),"34567",TotalVenta,"efectivo",empleados.get(1),empleados.get(2),sucursales.get(1),clientes.get(1),productosXVenta))    );
 	        
-	        
-	   
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

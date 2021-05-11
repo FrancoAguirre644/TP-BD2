@@ -20,7 +20,7 @@ public class VentaAdaptor {
     	
     	
 		DBObject VentaCreada = new BasicDBObject("_id",venta.getIdVenta())
-	      .append("fecha",venta.getFecha())
+	      .append("fecha",venta.getFecha().toString())
 	      .append("numeroTicket",venta.getNumeroTicket())
 	      .append("totalVenta",venta.getTotalVenta())
 	      .append("formaDePago", venta.getFormaDePago())
@@ -28,7 +28,7 @@ public class VentaAdaptor {
 	      .append("cobrador",EmpleadoAdaptor.toDBObject(venta.getCobrador()) )
 	      .append("sucursal", SucursalAdaptor.toDBObject(venta.getSucursal()))
 	      .append("cliente", ClienteAdaptor.toDBObject(venta.getCliente()))
-	      .append("productos", productos);;
+	      .append("productos", productos);
 
 		return VentaCreada;
   

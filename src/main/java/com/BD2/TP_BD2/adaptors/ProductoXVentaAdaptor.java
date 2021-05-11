@@ -8,7 +8,7 @@ import com.mongodb.DBObject;
 public class ProductoXVentaAdaptor {
     public static final DBObject toDBObject(ProductoXVenta productoXVenta) throws JsonProcessingException {
     	
-		DBObject productoXVentaCreado = new BasicDBObject("_id",productoXVenta.getIdProductoXVenta() )
+		DBObject productoXVentaCreado = new BasicDBObject("_id",productoXVenta.getIdProductoXVenta())
 	      .append("producto", ProductoAdaptor.toDBObject(productoXVenta.getProducto()))
 	      .append("cantidad", productoXVenta.getCantidad())
 	      .append("total",productoXVenta.getTotal())
