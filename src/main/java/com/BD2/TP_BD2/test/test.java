@@ -4,6 +4,7 @@ import java.net.UnknownHostException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import com.BD2.TP_BD2.adaptors.ClienteAdaptor;
 import com.BD2.TP_BD2.adaptors.EmpleadoAdaptor;
@@ -207,6 +208,101 @@ public class test {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
+		
+		// ***********************
+		//GENERAR PRODUCTOXVENTAS
+
+		
+		List<ProductoXVenta> productosVenta=  new ArrayList<ProductoXVenta>();
+		
+		Random rand = new Random();
+
+		//Podemos crear 600 productosXVenta (o más, o menos) para no tener que preocuparnos por el tema de que cada venta debe tener un promedio minimo de 1,5 productos o que
+		//las ventas varien un 20% aprox entre cada sucursal
+		for(int i = 0 ; i < 600 ; i++) {
+			int idProductoAVender = rand.nextInt(productos.size()-1);
+			int cantidadAVender = 1 + rand.nextInt(5);
+			float precioProducto =  productos.get(idProductoAVender).getPrecio();
+			
+			productosVenta.add(new ProductoXVenta(i, productos.get(idProductoAVender), cantidadAVender, precioProducto*cantidadAVender, precioProducto));
+		}
+		
+		// ***********************
+		// ***********************
+		//GENERAR VENTAS
+
+		
+		List<Venta> ventas =  new ArrayList<Venta>();
+
+		//NOTA: Cada venta debe tener un promedio minimo de 1,5 productos. 
+		//Como ejemplo, vamos a generar 200 ventas (cada una con 3 productos)
+		for(int i = 0; i < 200; i++) {			
+			
+			List<ProductoXVenta> infoVentas =  new ArrayList<ProductoXVenta>();
+			
+			//La manera mas facil que encontre de meterle 3 productoXVenta a cada venta, jajaja
+			//El remove devuelve el elemento que se elimina
+			infoVentas.add(productosVenta.remove(productosVenta.size()-1));
+			infoVentas.add(productosVenta.remove(productosVenta.size()-1));
+			infoVentas.add(productosVenta.remove(productosVenta.size()-1));
+
+			int month = 1+rand.nextInt(4);
+			int dayOfMonth = 1+rand.nextInt(26);
+			
+			//Por poner un numero al azar
+			String numeroTicket = String.valueOf(i+2800);
+
+			float total=0;
+			for(ProductoXVenta p : infoVentas)
+			{
+				total+=p.getTotal();
+			}
+			
+			//De esta manera, quedaria una sucursal con 90 ventas, otra con 65 y otra con 45 (entre las 3 hay desbalance de mas del 20%? por lo que tambien cumple con la consigna)
+			int idSucursal = 0;
+			
+			if(i<90) {
+				idSucursal = 0;			
+			}
+			else if(i>=90 && i<155) {
+				idSucursal = 1;
+			}
+			else {
+				idSucursal = 2;
+			}
+			
+			Sucursal sucursal = sucursales.get(idSucursal);
+			
+			//Habria que llamar a los empleados de la sucursal
+			Empleado vendedor = null;
+			Empleado cobrador = null;
+			
+			int idCliente = rand.nextInt(clientes.size()-1);
+			Cliente cliente = clientes.get(idCliente);
+			
+			String formaDePago = "Efectivo";
+			if(i%2==0) {
+				formaDePago = "Tarjeta de credito";
+			}
+			
+			ventas.add(new Venta(i+1, LocalDate.of(2021, month, dayOfMonth), numeroTicket, total, formaDePago, vendedor, cobrador, sucursal, cliente, infoVentas));
+			
+		}
+		
+		// ***********************
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 	}
 
