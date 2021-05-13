@@ -1,15 +1,15 @@
 package com.BD2.TP_BD2.adaptors;
 
+import org.bson.Document;
+
 import com.BD2.TP_BD2.models.Empleado;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
+
 
 public class EmpleadoAdaptor {
 	
-    public static final DBObject toDBObject(Empleado empleado) throws JsonProcessingException {
+    public static final Document toDBObject(Empleado empleado) {
     	
-		DBObject localidadCreada = new BasicDBObject("_id", empleado.getIdPersona())
+    	Document localidadCreada = new Document("_id", empleado.getIdPersona())
 	      .append("nombre", empleado.getNombre())
 	      .append("apellido", empleado.getApellido())
 	      .append("dni", empleado.getDni())

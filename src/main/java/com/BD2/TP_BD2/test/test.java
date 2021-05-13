@@ -1,10 +1,11 @@
 package com.BD2.TP_BD2.test;
 
-import java.net.UnknownHostException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import org.bson.Document;
 
 import com.BD2.TP_BD2.adaptors.ClienteAdaptor;
 import com.BD2.TP_BD2.adaptors.EmpleadoAdaptor;
@@ -12,6 +13,7 @@ import com.BD2.TP_BD2.adaptors.ObraSocialAdaptor;
 import com.BD2.TP_BD2.adaptors.SucursalAdaptor;
 import com.BD2.TP_BD2.adaptors.SucursalWithEmpleadosAdaptor;
 import com.BD2.TP_BD2.adaptors.VentaAdaptor;
+import com.BD2.TP_BD2.config.Connection;
 import com.BD2.TP_BD2.models.Cliente;
 import com.BD2.TP_BD2.models.Domicilio;
 import com.BD2.TP_BD2.models.Empleado;
@@ -22,16 +24,12 @@ import com.BD2.TP_BD2.models.ProductoXVenta;
 import com.BD2.TP_BD2.models.Provincia;
 import com.BD2.TP_BD2.models.Sucursal;
 import com.BD2.TP_BD2.models.Venta;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoCollection;
 
 public class test {
 	
-	public static void main(String [] args) throws JsonProcessingException {
+	public static void main(String [] args) {
 		
 		Localidad localidad1 = new Localidad(1, "Localidad 1");
 		Localidad localidad2 = new Localidad(2, "Localidad 2");
@@ -76,33 +74,26 @@ public class test {
 		for(int i=1;i<=6;i++) {
 			obrasSociales.add(new ObraSocial(i, "Obra Social " + i));
 		}
+
+		MongoCollection<Document> collectionSucursal = Connection.getInstance().getMongoDatabase().getCollection("sucursal");	
+		MongoCollection<Document> collectionObraSocial = Connection.getInstance().getMongoDatabase().getCollection("obraSocial");	
+		MongoCollection<Document> collectionCliente = Connection.getInstance().getMongoDatabase().getCollection("cliente");	
+		MongoCollection<Document> collectionEmpleado = Connection.getInstance().getMongoDatabase().getCollection("empleado");	
+		MongoCollection<Document> collectionVenta = Connection.getInstance().getMongoDatabase().getCollection("venta");	
+
 		
-		try {
-			MongoClient mongoClient = null;
-			mongoClient = new MongoClient(new MongoClientURI("mongodb://localhost:27017"));
-	        DB database = mongoClient.getDB("TP_BD2");
-	        
-	        DBCollection collectionSucursal = database.getCollection("sucursal");
-	        DBCollection collectionObraSocial = database.getCollection("obrasSocial");
-	        DBCollection collectionCliente = database.getCollection("cliente");
-	        DBCollection collectionEmpleado = database.getCollection("empleado");
-	        	        
-	        for(Sucursal s : sucursales) {
-	        	collectionSucursal.insert(SucursalAdaptor.toDBObject(s));
-	        }
-	        
-	        for(ObraSocial o : obrasSociales) {
-	        	collectionObraSocial.insert(ObraSocialAdaptor.toDBObject(o));
-	        }
-	        
-	        collectionCliente.insert(ClienteAdaptor.toDBObject(new Cliente(1, "Aguirre", "Franco", 42200255, domicilio3, obrasSociales.get(1))));
-	        collectionEmpleado.insert(EmpleadoAdaptor.toDBObject(new Empleado(2, "Aguirre", "Franco", 42200255, domicilio1, obrasSociales.get(1), "20422002554", sucursales.get(1))));
-	        
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+        for(Sucursal s : sucursales) {
+        	collectionSucursal.insertOne(SucursalAdaptor.toDBObject(s));
+        }
+        
+        for(ObraSocial o : obrasSociales) {
+        	collectionObraSocial.insertOne(ObraSocialAdaptor.toDBObject(o));
+        }
+        
+        collectionCliente.insertOne(ClienteAdaptor.toDBObject(new Cliente(1, "Aguirre", "Franco", 42200255, domicilio3, obrasSociales.get(1))));
+        collectionEmpleado.insertOne(EmpleadoAdaptor.toDBObject(new Empleado(2, "Aguirre", "Franco", 42200255, domicilio1, obrasSociales.get(1), "20422002554", sucursales.get(1))));
+       
+	
 		List<Empleado> empleados =  new ArrayList<Empleado>();
 		//Uno de estos 3 tiene que ser encargado
 		empleados.add(new Empleado(1, "Vento", "Ulises", 42200251, domicilio19, obrasSociales.get(1), "2042200251", sucursales.get(0)));
@@ -117,28 +108,16 @@ public class test {
 		empleados.add(new Empleado(8, "Guillon", "German", 37455445, domicilio17, obrasSociales.get(4), "2037455445", sucursales.get(2)));
 		empleados.add(new Empleado(9, "Juanes", "Federico", 36632552, domicilio18, obrasSociales.get(4), "2036632552", sucursales.get(2)));
 
+	        
+	    collectionSucursal.insertOne(SucursalWithEmpleadosAdaptor.toDBObject(new Sucursal(4, domicilio3, "10000003", empleados)));
+	    System.out.println(collectionSucursal.find(new BasicDBObject("_id", 4)));
 
-		try {
-			MongoClient mongoClient = null;
-			mongoClient = new MongoClient(new MongoClientURI("mongodb://localhost:27017"));
-	        DB database = mongoClient.getDB("TP_BD2");
-	        
-	        DBCollection collectionSucursal = database.getCollection("sucursal");
-	        
-	        collectionSucursal.insert(SucursalWithEmpleadosAdaptor.toDBObject(new Sucursal(4, domicilio3, "10000003", empleados)));
-	        System.out.println(collectionSucursal.findOne(new BasicDBObject("_id", 4)));
-	        
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		LocalDate fecha1=LocalDate.of(2021,5, 1);
-		LocalDate fecha2=LocalDate.of(2021,5, 2);
-		LocalDate fecha3=LocalDate.of(2021,5, 3);
-		LocalDate fecha4=LocalDate.of(2021,5, 4);
-		LocalDate fecha5=LocalDate.of(2021,5, 5);
+	    
+		LocalDate fecha1 = LocalDate.of(2021,5, 1);
+		LocalDate fecha2 = LocalDate.of(2021,5, 2);
+		LocalDate fecha3 = LocalDate.of(2021,5, 3);
+		LocalDate fecha4 = LocalDate.of(2021,5, 4);
+		LocalDate fecha5 = LocalDate.of(2021,5, 5);
 		
 		ObraSocial obrasocial1 = new ObraSocial(1,"IOMA");
 		ObraSocial obrasocial2 = new ObraSocial(2,"FEMEBA");
@@ -147,7 +126,7 @@ public class test {
 		ObraSocial obrasocial5 = new ObraSocial(5,"SANCOR");
 		
 		
-		List<Cliente> clientes=  new ArrayList<Cliente>();
+		List<Cliente> clientes = new ArrayList<Cliente>();
 		clientes.add(new Cliente(10,"Gonzalez","Esteban",42356798,domicilio4,obrasocial1));
 		clientes.add(new Cliente(11,"Rojas","Ariel",42356798,domicilio5,obrasocial3));
 		clientes.add(new Cliente(12,"Manso","Lucas",42356798,domicilio6,obrasocial5));
@@ -175,7 +154,6 @@ public class test {
 		productos.add(new Producto(76350,"Desodorante","Axe",150,false));
 		
 		
-		
 		int cantidad1=26;
 		int cantidad2=33;
 		int cantidad3=24;
@@ -190,27 +168,16 @@ public class test {
 		productosXVenta.add(new ProductoXVenta(5,productos.get(2),cantidad1,productos.get(2).getPrecio()*cantidad1,productos.get(2).getPrecio()));
 		
 		float totalVenta=0;
+		
 		for(ProductoXVenta p : productosXVenta)
 		{
 			totalVenta+=p.getTotal();
 		}
 		
-		try {
-			MongoClient mongoClient = null;
-			mongoClient = new MongoClient(new MongoClientURI("mongodb://localhost:27017"));
-	        DB database = mongoClient.getDB("TP_BD2");
-	        
-	        DBCollection ventaCollection = database.getCollection("venta");
-	        
-	        ventaCollection.insert(VentaAdaptor.toDBObject(  new Venta(1, LocalDate.now(),"34567",totalVenta,"efectivo",empleados.get(1),empleados.get(2),sucursales.get(1),clientes.get(1),productosXVenta))    );
-	        
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		
+
+	    collectionVenta.insertOne(VentaAdaptor.toDBObject(new Venta(1, LocalDate.now(),"34567",totalVenta,"efectivo",empleados.get(1),empleados.get(2),sucursales.get(1),clientes.get(1),productosXVenta)));
+
+	    
 		// ***********************
 		//GENERAR PRODUCTOXVENTAS
 
@@ -288,22 +255,8 @@ public class test {
 			}
 			
 			ventas.add(new Venta(i+1, LocalDate.of(2021, month, dayOfMonth), numeroTicket, total, formaDePago, vendedor, cobrador, sucursal, cliente, infoVentas));
-			
 		}
 		
-		// ***********************
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	}
-
+		// ***********************
 }

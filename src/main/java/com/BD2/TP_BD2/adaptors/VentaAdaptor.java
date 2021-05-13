@@ -1,25 +1,23 @@
 package com.BD2.TP_BD2.adaptors;
 import java.util.ArrayList;
 
+import org.bson.Document;
 
 import com.BD2.TP_BD2.models.ProductoXVenta;
 import com.BD2.TP_BD2.models.Venta;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
 
 public class VentaAdaptor {
 	
-    public static final DBObject toDBObject(Venta venta) throws JsonProcessingException {
+    public static final Document toDBObject(Venta venta) {
     	    	
-	ArrayList<DBObject> productos = new ArrayList<DBObject>();
+	ArrayList<Document> productos = new ArrayList<Document>();
     	
     	for(ProductoXVenta p : venta.getProductos()) {
     		productos.add(ProductoXVentaAdaptor.toDBObject(p));
     	}
     	
     	
-		DBObject VentaCreada = new BasicDBObject("_id",venta.getIdVenta())
+    	Document VentaCreada = new Document("_id",venta.getIdVenta())
 	      .append("fecha",venta.getFecha().toString())
 	      .append("numeroTicket",venta.getNumeroTicket())
 	      .append("totalVenta",venta.getTotalVenta())

@@ -1,14 +1,14 @@
 package com.BD2.TP_BD2.adaptors;
 
+import org.bson.Document;
+
 import com.BD2.TP_BD2.models.ProductoXVenta;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
+
 
 public class ProductoXVentaAdaptor {
-    public static final DBObject toDBObject(ProductoXVenta productoXVenta) throws JsonProcessingException {
+    public static final Document toDBObject(ProductoXVenta productoXVenta) {
     	
-		DBObject productoXVentaCreado = new BasicDBObject("_id",productoXVenta.getIdProductoXVenta())
+    	Document productoXVentaCreado = new Document("_id",productoXVenta.getIdProductoXVenta())
 	      .append("producto", ProductoAdaptor.toDBObject(productoXVenta.getProducto()))
 	      .append("cantidad", productoXVenta.getCantidad())
 	      .append("total",productoXVenta.getTotal())

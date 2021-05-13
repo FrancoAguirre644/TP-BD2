@@ -1,15 +1,15 @@
 package com.BD2.TP_BD2.adaptors;
 
+import org.bson.Document;
+
 import com.BD2.TP_BD2.models.Provincia;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
+
 
 public class ProvinciaAdaptor {
 	
-    public static final DBObject toDBObject(Provincia provincia) throws JsonProcessingException {
+    public static final Document toDBObject(Provincia provincia) {
     	    	
-		DBObject provinciaCreada = new BasicDBObject("_id", provincia.getIdProvincia())
+    	Document provinciaCreada = new Document("_id", provincia.getIdProvincia())
 	      .append("nombre", provincia.getNombre());
 		
 		return provinciaCreada;

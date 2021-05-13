@@ -1,15 +1,15 @@
 package com.BD2.TP_BD2.adaptors;
 
+import org.bson.Document;
+
 import com.BD2.TP_BD2.models.Domicilio;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
+
 
 public class DomicilioAdaptor {
 	
-    public static final DBObject toDBObject(Domicilio domicilio) throws JsonProcessingException {
+    public static final Document toDBObject(Domicilio domicilio) {
     	
-		DBObject domicilioCreado = new BasicDBObject("_id", domicilio.getIdDomicilio())
+    	Document domicilioCreado = new Document("_id", domicilio.getIdDomicilio())
 		  .append("numero", domicilio.getNumero())
 		  .append("calle", domicilio.getCalle())
 	      .append("localidad", LocalidadAdaptor.toDBObject(domicilio.getLocalidad()))

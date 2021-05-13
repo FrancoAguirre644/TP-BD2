@@ -1,15 +1,14 @@
 package com.BD2.TP_BD2.adaptors;
 
+import org.bson.Document;
+
 import com.BD2.TP_BD2.models.ObraSocial;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
 
 public class ObraSocialAdaptor {
 	
-    public static final DBObject toDBObject(ObraSocial obraSocial) throws JsonProcessingException {
+    public static final Document toDBObject(ObraSocial obraSocial) {
     	
-		DBObject obraSocialCreada = new BasicDBObject("_id", obraSocial.getIdObraSocial())
+    	Document obraSocialCreada = new Document("_id", obraSocial.getIdObraSocial())
 	      .append("nombre", obraSocial.getNombre());
 
 		return obraSocialCreada;
