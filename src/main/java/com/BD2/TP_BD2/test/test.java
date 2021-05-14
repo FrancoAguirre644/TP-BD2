@@ -75,24 +75,7 @@ public class test {
 			obrasSociales.add(new ObraSocial(i, "Obra Social " + i));
 		}
 
-		MongoCollection<Document> collectionSucursal = Connection.getInstance().getMongoDatabase().getCollection("sucursal");	
-		MongoCollection<Document> collectionObraSocial = Connection.getInstance().getMongoDatabase().getCollection("obraSocial");	
-		MongoCollection<Document> collectionCliente = Connection.getInstance().getMongoDatabase().getCollection("cliente");	
-		MongoCollection<Document> collectionEmpleado = Connection.getInstance().getMongoDatabase().getCollection("empleado");	
 		MongoCollection<Document> collectionVenta = Connection.getInstance().getMongoDatabase().getCollection("venta");	
-
-		
-        for(Sucursal s : sucursales) {
-        	collectionSucursal.insertOne(SucursalAdaptor.toDBObject(s));
-        }
-        
-        for(ObraSocial o : obrasSociales) {
-        	collectionObraSocial.insertOne(ObraSocialAdaptor.toDBObject(o));
-        }
-        
-        collectionCliente.insertOne(ClienteAdaptor.toDBObject(new Cliente(1, "Aguirre", "Franco", 42200255, domicilio3, obrasSociales.get(1))));
-        collectionEmpleado.insertOne(EmpleadoAdaptor.toDBObject(new Empleado(2, "Aguirre", "Franco", 42200255, domicilio1, obrasSociales.get(1), "20422002554", sucursales.get(1))));
-       
 	
 		List<Empleado> empleados =  new ArrayList<Empleado>();
 		//Uno de estos 3 tiene que ser encargado
@@ -108,12 +91,7 @@ public class test {
 		empleados.add(new Empleado(8, "Guillon", "German", 37455445, domicilio17, obrasSociales.get(4), "2037455445", sucursales.get(2)));
 		empleados.add(new Empleado(9, "Juanes", "Federico", 36632552, domicilio18, obrasSociales.get(4), "2036632552", sucursales.get(2)));
 
-	        
-	    collectionSucursal.insertOne(SucursalWithEmpleadosAdaptor.toDBObject(new Sucursal(4, domicilio3, "10000003", empleados)));
-	    System.out.println(collectionSucursal.find(new BasicDBObject("_id", 4)));
-
-	    
-		LocalDate fecha1 = LocalDate.of(2021,5, 1);
+	    LocalDate fecha1 = LocalDate.of(2021,5, 1);
 		LocalDate fecha2 = LocalDate.of(2021,5, 2);
 		LocalDate fecha3 = LocalDate.of(2021,5, 3);
 		LocalDate fecha4 = LocalDate.of(2021,5, 4);
@@ -124,7 +102,6 @@ public class test {
 		ObraSocial obrasocial3 = new ObraSocial(3,"IOSE");
 		ObraSocial obrasocial4 = new ObraSocial(4,"DOSUBA");
 		ObraSocial obrasocial5 = new ObraSocial(5,"SANCOR");
-		
 		
 		List<Cliente> clientes = new ArrayList<Cliente>();
 		clientes.add(new Cliente(10,"Gonzalez","Esteban",42356798,domicilio4,obrasocial1));
