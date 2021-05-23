@@ -79,23 +79,23 @@ public class test {
 	
 		List<Empleado> empleados =  new ArrayList<Empleado>();
 		//Uno de estos 3 tiene que ser encargado
-		empleados.add(new Empleado(1, "Vento", "Ulises", 42200251, domicilio19, obrasSociales.get(1), "2042200251", sucursales.get(0)));
-		empleados.add(new Empleado(2, "Oero", "Natalia", 42278255, domicilio20, obrasSociales.get(0), "2042278255", sucursales.get(0)));
-		empleados.add(new Empleado(3, "Zabaleta", "Agustina", 40001100, domicilio21, obrasSociales.get(3), "2040001100", sucursales.get(0)));
+		empleados.add(new Empleado(1, "Vento", "Ulises", 42200251, domicilio19, obrasSociales.get(1), "2042200251", sucursales.get(0), true));
+		empleados.add(new Empleado(2, "Oero", "Natalia", 42278255, domicilio20, obrasSociales.get(0), "2042278255", sucursales.get(0),false));
+		empleados.add(new Empleado(3, "Zabaleta", "Agustina", 40001100, domicilio21, obrasSociales.get(3), "2040001100", sucursales.get(0), false));
 		//Uno de estos 3 tiene que ser encargado
-		empleados.add(new Empleado(4, "Aguirre", "Franco", 42200255, domicilio13, obrasSociales.get(2), "2042200255", sucursales.get(1)));
-		empleados.add(new Empleado(5, "Lopez", "Norberto", 41223223, domicilio14, obrasSociales.get(1), "2041223223", sucursales.get(1)));
-		empleados.add(new Empleado(6, "Monzon", "Gabriela", 43225119, domicilio15, obrasSociales.get(3), "2043225119", sucursales.get(1)));
+		empleados.add(new Empleado(4, "Aguirre", "Franco", 42200255, domicilio13, obrasSociales.get(2), "2042200255", sucursales.get(1),true));
+		empleados.add(new Empleado(5, "Lopez", "Norberto", 41223223, domicilio14, obrasSociales.get(1), "2041223223", sucursales.get(1),false));
+		empleados.add(new Empleado(6, "Monzon", "Gabriela", 43225119, domicilio15, obrasSociales.get(3), "2043225119", sucursales.get(1),false));
 		//Uno de estos 3 tiene que ser encargado
-		empleados.add(new Empleado(7, "Ruiz", "Franco", 40998789, domicilio16, obrasSociales.get(2), "2040998789", sucursales.get(2)));
-		empleados.add(new Empleado(8, "Guillon", "German", 37455445, domicilio17, obrasSociales.get(4), "2037455445", sucursales.get(2)));
-		empleados.add(new Empleado(9, "Juanes", "Federico", 36632552, domicilio18, obrasSociales.get(4), "2036632552", sucursales.get(2)));
+		empleados.add(new Empleado(7, "Ruiz", "Franco", 40998789, domicilio16, obrasSociales.get(2), "2040998789", sucursales.get(2),true));
+		empleados.add(new Empleado(8, "Guillon", "German", 37455445, domicilio17, obrasSociales.get(4), "2037455445", sucursales.get(2),false));
+		empleados.add(new Empleado(9, "Juanes", "Federico", 36632552, domicilio18, obrasSociales.get(4), "2036632552", sucursales.get(2),false));
 
-	    LocalDate fecha1 = LocalDate.of(2021,5, 1);
-		LocalDate fecha2 = LocalDate.of(2021,5, 2);
-		LocalDate fecha3 = LocalDate.of(2021,5, 3);
-		LocalDate fecha4 = LocalDate.of(2021,5, 4);
-		LocalDate fecha5 = LocalDate.of(2021,5, 5);
+		
+		sucursales.get(0).setEmpleados(empleados.subList(0, 3));
+		sucursales.get(1).setEmpleados(empleados.subList(3, 6));
+		sucursales.get(2).setEmpleados(empleados.subList(6, 9));
+
 		
 		ObraSocial obrasocial1 = new ObraSocial(1,"IOMA");
 		ObraSocial obrasocial2 = new ObraSocial(2,"FEMEBA");
@@ -130,31 +130,6 @@ public class test {
 		productos.add(new Producto(76345,"Perfume","Primor",2770,false));
 		productos.add(new Producto(76350,"Desodorante","Axe",150,false));
 		
-		
-		int cantidad1=26;
-		int cantidad2=33;
-		int cantidad3=24;
-		int cantidad4=15;
-		
-		
-		List<ProductoXVenta> productosXVenta=  new ArrayList<ProductoXVenta>();
-		productosXVenta.add(new ProductoXVenta(1,productos.get(1),cantidad1,productos.get(1).getPrecio()*cantidad1,productos.get(1).getPrecio()));
-		productosXVenta.add(new ProductoXVenta(2,productos.get(2),cantidad1,productos.get(2).getPrecio()*cantidad2,productos.get(2).getPrecio()));
-		productosXVenta.add(new ProductoXVenta(3,productos.get(3),cantidad1,productos.get(3).getPrecio()*cantidad3,productos.get(3).getPrecio()));
-		productosXVenta.add(new ProductoXVenta(4,productos.get(0),cantidad1,productos.get(0).getPrecio()*cantidad4,productos.get(0).getPrecio()));
-		productosXVenta.add(new ProductoXVenta(5,productos.get(2),cantidad1,productos.get(2).getPrecio()*cantidad1,productos.get(2).getPrecio()));
-		
-		float totalVenta=0;
-		
-		for(ProductoXVenta p : productosXVenta)
-		{
-			totalVenta+=p.getTotal();
-		}
-		
-
-	    collectionVenta.insertOne(VentaAdaptor.toDBObject(new Venta(1, LocalDate.now(),"34567",totalVenta,"efectivo",empleados.get(1),empleados.get(2),sucursales.get(1),clientes.get(1),productosXVenta)));
-
-	    
 		// ***********************
 		//GENERAR PRODUCTOXVENTAS
 
@@ -163,17 +138,25 @@ public class test {
 		
 		Random rand = new Random();
 
-		//Podemos crear 600 productosXVenta (o más, o menos) para no tener que preocuparnos por el tema de que cada venta debe tener un promedio minimo de 1,5 productos o que
+		//Podemos crear 180 productosXVenta (masomenos) para no tener que preocuparnos por el tema de que cada venta debe tener un promedio minimo de 1,5 productos o que
 		//las ventas varien un 20% aprox entre cada sucursal
-		for(int i = 0 ; i < 600 ; i++) {
+		for(int i = 0 ; i < 180 ; i++) {
 			int idProductoAVender = rand.nextInt(productos.size()-1);
 			int cantidadAVender = 1 + rand.nextInt(5);
 			float precioProducto =  productos.get(idProductoAVender).getPrecio();
+			
+			// Para que no haya dos productoXVenta seguidos con el mismo producto
+			if( i > 1) {
+				while(productos.get(idProductoAVender).equals(productosVenta.get(productosVenta.size()-1).getProducto())) {
+					idProductoAVender = rand.nextInt(productos.size()-1);
+				}
+			}
 			
 			productosVenta.add(new ProductoXVenta(i, productos.get(idProductoAVender), cantidadAVender, precioProducto*cantidadAVender, precioProducto));
 		}
 		
 		// ***********************
+		
 		// ***********************
 		//GENERAR VENTAS
 
@@ -181,14 +164,12 @@ public class test {
 		List<Venta> ventas =  new ArrayList<Venta>();
 
 		//NOTA: Cada venta debe tener un promedio minimo de 1,5 productos. 
-		//Como ejemplo, vamos a generar 200 ventas (cada una con 3 productos)
-		for(int i = 0; i < 200; i++) {			
+		//Como ejemplo, vamos a generar 90 ventas (cada una con 2 productos)
+		for(int i = 0; i < 90; i++) {			
 			
 			List<ProductoXVenta> infoVentas =  new ArrayList<ProductoXVenta>();
 			
-			//La manera mas facil que encontre de meterle 3 productoXVenta a cada venta, jajaja
 			//El remove devuelve el elemento que se elimina
-			infoVentas.add(productosVenta.remove(productosVenta.size()-1));
 			infoVentas.add(productosVenta.remove(productosVenta.size()-1));
 			infoVentas.add(productosVenta.remove(productosVenta.size()-1));
 
@@ -204,13 +185,13 @@ public class test {
 				total+=p.getTotal();
 			}
 			
-			//De esta manera, quedaria una sucursal con 90 ventas, otra con 65 y otra con 45 (entre las 3 hay desbalance de mas del 20%? por lo que tambien cumple con la consigna)
+
 			int idSucursal = 0;
 			
-			if(i<90) {
+			if(i<28) {
 				idSucursal = 0;			
 			}
-			else if(i>=90 && i<155) {
+			else if(i>=28 && i<=58) {
 				idSucursal = 1;
 			}
 			else {
@@ -219,9 +200,11 @@ public class test {
 			
 			Sucursal sucursal = sucursales.get(idSucursal);
 			
-			//Habria que llamar a los empleados de la sucursal
-			Empleado vendedor = null;
-			Empleado cobrador = null;
+			int posVendedor = 1+rand.nextInt(sucursal.getEmpleados().size()-1);
+
+			//Vendedor random, cobrador siempre el encargado para simplificar las cosas.
+			Empleado vendedor = sucursal.getEmpleados().get(posVendedor);
+			Empleado cobrador = sucursal.getEmpleados().get(0);
 			
 			int idCliente = rand.nextInt(clientes.size()-1);
 			Cliente cliente = clientes.get(idCliente);

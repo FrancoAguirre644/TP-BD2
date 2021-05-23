@@ -4,16 +4,18 @@ public class Empleado extends Persona {
 
 	private String cuil;
 	private Sucursal sucursal;
+	private boolean esEncargado;
 
 	public Empleado() {
 		super();
 	}
 
 	public Empleado(int idPersona, String apellido, String nombre, long dni, Domicilio domicilio, ObraSocial obraSocial,
-			String cuil, Sucursal sucursal) {
+			String cuil, Sucursal sucursal, boolean esEncargado) {
 		super(idPersona, apellido, nombre, dni, domicilio, obraSocial);
 		this.cuil = cuil;
 		this.sucursal = sucursal;
+		this.esEncargado = esEncargado;
 	}
 
 	public String getCuil() {
@@ -32,9 +34,18 @@ public class Empleado extends Persona {
 		this.sucursal = sucursal;
 	}
 
-	@Override
-	public String toString() {
-		return "Empleado [cuil=" + cuil + ", sucursal=" + sucursal + "]";
+	public boolean isEsEncargado() {
+		return esEncargado;
 	}
 
+	public void setEsEncargado(boolean esEncargado) {
+		this.esEncargado = esEncargado;
+	}
+
+	@Override
+	public String toString() {
+		return "Empleado [cuil=" + cuil + ", sucursal=" + sucursal + ", esEncargado=" + esEncargado + "]";
+	}
+
+	
 }
