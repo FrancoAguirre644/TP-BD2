@@ -1,0 +1,45 @@
+--- REPORTES DESDE EL CLIENTE DE MONGO DB ---
+
+
+------REPORTE 1------
+1. Detalle y totales de ventas para la cadena completa y por sucursal, entre fechas.
+Para la cadena completa:
+Detalle:
+db.venta.find( {fecha: { $gte: "2021-01-01", $lte: "2021-06-01" } } ).pretty()
+
+
+Total de ventas:
+print("Total de ventas de la cadena completa: " + db.venta.find( {fecha: { $gte: "2021-01-01", $lte: "2021-06-01" } } ).count())
+
+------
+Por sucursal:
+Detalle:
+db.venta.find( {fecha: { $gte: "2021-01-01", $lte: "2021-06-01" }, "sucursal._id": 2 } ).pretty()
+#Si por ejemplo se quiere obtener el detalle de una sucursal por la calle, en lugar del ID:
+db.venta.find( {fecha: { $gte: "2021-01-01", $lte: "2021-06-01" }, "sucursal.domicilio.calle": "Calle 2" } ).pretty()
+
+
+Total de ventas:
+print("Total de ventas de la sucursal 2: " + db.venta.find( {fecha: { $gte: "2021-01-01", $lte: "2021-06-01" }, "sucursal._id": 2 } ).count())
+
+
+------REPORTE 2------
+2. Detalle y totales de ventas para la cadena completa y por sucursal, por obra social o privados entre
+fechas.
+Cadena completa y obra social:
+db.venta.find( {fecha: { $gte: "2021-01-01", $lte: "2021-06-01" }, "cliente.obra social.nombre": "IOSE" } ).pretty()
+print("Total: " + db.venta.find( {fecha: { $gte: "2021-01-01", $lte: "2021-06-01" }, "cliente.obra social.nombre": "IOSE" } ).count())
+
+
+Cadena completa y privados:
+db.venta.find( {fecha: { $gte: "2021-01-01", $lte: "2021-06-01" }, "cliente.obra social": null } ).pretty()
+print("Total: " + db.venta.find( {fecha: { $gte: "2021-01-01", $lte: "2021-06-01" }, "cliente.obra social": null } ).count())
+
+------
+Por sucursal y clientes con obra social:
+db.venta.find( {fecha: { $gte: "2021-01-01", $lte: "2021-06-01" }, "cliente.obra social.nombre": "IOSE", "sucursal.domicilio.calle": "Calle 2" } ).pretty()
+print("Total: " + db.venta.find( {fecha: { $gte: "2021-01-01", $lte: "2021-06-01" }, "cliente.obra social.nombre": "IOSE", "sucursal.domicilio.calle": "Calle 2" } ).count())
+
+Por sucursal y clientes privados:
+db.venta.find( {fecha: { $gte: "2021-01-01", $lte: "2021-06-01" }, "cliente.obra social": null, "sucursal.domicilio.calle": "Calle 2" } ).pretty()
+print("Total: " + db.venta.find( {fecha: { $gte: "2021-01-01", $lte: "2021-06-01" }, "cliente.obra social": null, "sucursal.domicilio.calle": "Calle 2" } ).count())
