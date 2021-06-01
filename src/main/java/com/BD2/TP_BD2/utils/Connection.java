@@ -1,4 +1,4 @@
-package com.BD2.TP_BD2.config;
+package com.BD2.TP_BD2.utils;
 
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoClient;
