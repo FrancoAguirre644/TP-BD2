@@ -74,7 +74,9 @@ public class test {
 		for(int i=1;i<=6;i++) {
 			obrasSociales.add(new ObraSocial(i, "Obra Social " + i));
 		}
-
+		
+		/**** AHORA NO ES NECESARIO EL TRY/CATCH *****/
+		
 		MongoCollection<Document> collectionSucursal = Connection.getInstance().getMongoDatabase().getCollection("sucursal");	
 		MongoCollection<Document> collectionObraSocial = Connection.getInstance().getMongoDatabase().getCollection("obraSocial");	
 		MongoCollection<Document> collectionCliente = Connection.getInstance().getMongoDatabase().getCollection("cliente");	
@@ -110,8 +112,6 @@ public class test {
 
 	        
 	    collectionSucursal.insertOne(SucursalWithEmpleadosAdaptor.toDBObject(new Sucursal(4, domicilio3, "10000003", empleados)));
-	    System.out.println(collectionSucursal.find(new BasicDBObject("_id", 4)));
-
 	    
 		LocalDate fecha1 = LocalDate.of(2021,5, 1);
 		LocalDate fecha2 = LocalDate.of(2021,5, 2);
@@ -257,6 +257,12 @@ public class test {
 			ventas.add(new Venta(i+1, LocalDate.of(2021, month, dayOfMonth), numeroTicket, total, formaDePago, vendedor, cobrador, sucursal, cliente, infoVentas));
 		}
 		
+		/*****************************/
+		
+		Document venta = collectionVenta.find().first();
+		System.out.println(venta.toJson());
+		
 	}
-		// ***********************
+	
+
 }
