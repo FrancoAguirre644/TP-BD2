@@ -1,0 +1,23 @@
+--- REPORTES DESDE EL CLIENTE DE MONGO DB ---
+
+
+------REPORTE 1------
+1. Detalle y totales de ventas para la cadena completa y por sucursal, entre fechas.
+Para la cadena completa:
+db.venta.aggregate([ { $match: { fecha: { $gte: "2021-01-01", $lte: "2021-06-01" } } }, { $group: { _id: "", totalVenta: { $sum: "$totalVenta" } } } ] )
+------
+Por sucursal:
+db.venta.aggregate( [ { $match: { fecha: { $gte: "2021-01-01", $lte: "2021-06-01" } } }, { $group: { _id : "$_id", Venta_total: { $sum: "$totalVenta" } } } ] )
+
+
+------REPORTE 2------
+2. Detalle y totales de ventas para la cadena completa y por sucursal, por obra social o privados entre
+fechas.
+Cadena completa por obra social del cliente y privados:
+db.venta.aggregate([ { $match: { fecha: { $gte: "2021-01-01", $lte: "2021-06-01" } } }, { $group: { _id: "$cliente.obra social.nombre", totalVenta: { $sum: "$totalVenta" } } } ] )
+------
+Por sucursal por obra social del cliente y privados:
+db.venta.aggregate( [ { $match: { fecha: { $gte: "2021-01-01", $lte: "2021-06-01" } } }, { $group: { _id : { _id: "$sucursal", Obra_social_cliente: "$cliente.obra social" } , Venta_total: { $sum: "$totalVenta" } } } ] ).pretty()
+
+
+

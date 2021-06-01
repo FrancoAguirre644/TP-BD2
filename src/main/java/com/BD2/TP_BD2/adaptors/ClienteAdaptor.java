@@ -15,8 +15,17 @@ public class ClienteAdaptor {
 	      .append("apellido", cliente.getApellido())
 	      .append("dni", cliente.getDni())
 	      .append("dni", cliente.getDni())
-	      .append("domicilio", DomicilioAdaptor.toDBObject(cliente.getDomicilio()))
-		  .append("obra social", ObraSocialAdaptor.toDBObject(cliente.getObraSocial()));
+	      .append("domicilio", DomicilioAdaptor.toDBObject(cliente.getDomicilio()));
+	      
+	      
+	     if(cliente.getObraSocial() != null) {
+	    	 clienteCreado.append("obra social", ObraSocialAdaptor.toDBObject(cliente.getObraSocial()));
+	     }else {
+	    	 clienteCreado.append("obra social", null);
+	     }
+	      
+	      
+		  
 
 		return clienteCreado;
   }
