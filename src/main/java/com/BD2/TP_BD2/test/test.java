@@ -220,7 +220,7 @@ public class test {
 
 		/*****************************/
 
-		collectionVenta.insertMany(ventas);
+		//collectionVenta.insertMany(ventas);
 
 		Export.toJson(collectionVenta.find().iterator());
 
