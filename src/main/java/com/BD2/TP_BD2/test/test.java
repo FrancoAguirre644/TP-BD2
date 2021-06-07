@@ -223,7 +223,8 @@ public class test {
 		//collectionVenta.insertMany(ventas);
 
 		Export.toJson(collectionVenta.find().iterator());
-
+      
+		System.out.println("\nProceso terminado");
 	}
 
 }
