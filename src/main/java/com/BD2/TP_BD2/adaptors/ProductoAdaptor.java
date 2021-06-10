@@ -12,7 +12,7 @@ public class ProductoAdaptor {
 	      .append("descripcion", producto.getDescripcion())
 	      .append("laboratorio", producto.getLaboratorio())
 	      .append("precio", producto.getPrecio())
-	      .append("esDeFarmacia", producto.getEsDeFarmacia());
+	      .append("tipoDeProducto", producto.getTipoDeProducto());
 		
 		return productoCreado;
 		

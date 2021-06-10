@@ -6,19 +6,19 @@ public class Producto {
 	private String descripcion;
 	private String laboratorio;
 	private float precio;
-	private boolean esDeFarmacia;
+	private String tipoDeProducto;
 
 	public Producto() {
 		super();
 	}
 
-	public Producto(int codigoNumerico, String descripcion, String laboratorio, float precio, boolean esDeFarmacia) {
+	public Producto(int codigoNumerico, String descripcion, String laboratorio, float precio, String tipoDeProducto) {
 		super();
 		this.codigoNumerico = codigoNumerico;
 		this.descripcion = descripcion;
 		this.laboratorio = laboratorio;
 		this.precio = precio;
-		this.esDeFarmacia = esDeFarmacia;
+		this.tipoDeProducto = tipoDeProducto;
 	}
 
 	public int getCodigoNumerico() {
@@ -53,18 +53,18 @@ public class Producto {
 		this.precio = precio;
 	}
 
-	public boolean getEsDeFarmacia() {
-		return esDeFarmacia;
+	public String getTipoDeProducto() {
+		return tipoDeProducto;
 	}
 
-	public void setEsDeFarmacia(boolean esDeFarmacia) {
-		this.esDeFarmacia = esDeFarmacia;
+	public void setTipoDeProducto(String tipoDeProducto) {
+		this.tipoDeProducto = tipoDeProducto;
 	}
 
 	@Override
 	public String toString() {
 		return "Producto [codigoNumerico=" + codigoNumerico + ", descripcion=" + descripcion + ", laboratorio="
-				+ laboratorio + ", precio=" + precio + ", esDeFarmacia=" + esDeFarmacia + "]";
+				+ laboratorio + ", precio=" + precio + ", tipoDeProducto=" + tipoDeProducto + "]";
 	}
 
 }

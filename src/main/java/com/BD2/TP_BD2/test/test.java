@@ -119,17 +119,17 @@ public class test {
 
 		List<Producto> productos = new ArrayList<Producto>();
 		// 7 medicamentos
-		productos.add(new Producto(33452, "Jarabe", "STADA", 1250, true));
-		productos.add(new Producto(21345, "Ibupirac", "Stiefel", 1100, true));
-		productos.add(new Producto(21456, "Ibuprofeno", "Laboratorio Sanchez", 650, true));
-		productos.add(new Producto(22114, "Anaflex", "Bago", 630, true));
-		productos.add(new Producto(23548, "Mejoralito paracetamol", "GSK", 110, true));
-		productos.add(new Producto(56245, "Buconangin FORTE", "Biosintex", 990, true));
-		productos.add(new Producto(21346, "Paracetamol", "Bayer", 555, true));
+		productos.add(new Producto(33452, "Jarabe", "STADA", 1250, "De farmacia"));
+		productos.add(new Producto(21345, "Ibupirac", "Stiefel", 1100, "De farmacia"));
+		productos.add(new Producto(21456, "Ibuprofeno", "Laboratorio Sanchez", 650, "De farmacia"));
+		productos.add(new Producto(22114, "Anaflex", "Bago", 630, "De farmacia"));
+		productos.add(new Producto(23548, "Mejoralito paracetamol", "GSK", 110, "De farmacia"));
+		productos.add(new Producto(56245, "Buconangin FORTE", "Biosintex", 990, "De farmacia"));
+		productos.add(new Producto(21346, "Paracetamol", "Bayer", 555, "De farmacia"));
 		// 3 perfumes
-		productos.add(new Producto(24567, "Crema", "Nadia", 2500, false));
-		productos.add(new Producto(76345, "Perfume", "Primor", 2770, false));
-		productos.add(new Producto(76350, "Desodorante", "Axe", 150, false));
+		productos.add(new Producto(24567, "Crema", "Nadia", 2500, "De perfumeria"));
+		productos.add(new Producto(76345, "Perfume", "Primor", 2770, "De perfumeria"));
+		productos.add(new Producto(76350, "Desodorante", "Axe", 150, "De perfumeria"));
 
 		// ***********************
 		// GENERAR PRODUCTOXVENTAS
@@ -220,7 +220,7 @@ public class test {
 
 		/*****************************/
 
-		//collectionVenta.insertMany(ventas);
+		collectionVenta.insertMany(ventas);
 
 		Export.toJson(collectionVenta.find().iterator());
       
