@@ -11,13 +11,18 @@ public class Export {
 
 	public static void toJson(MongoCursor<Document> cursor) {
 		try {
-
 			FileWriter file = new FileWriter("target/ventas.json");
-
+			int contarVentas = 1;
+			file.write("[");
 			while (cursor.hasNext()) {
-				file.write(cursor.next().toJson());
+				if(contarVentas < 90){
+				   file.write(cursor.next().toJson()+",");
+				}else {
+				   file.write(cursor.next().toJson());						
+				}
+				contarVentas ++;
 			}
-
+			file.write("]");
 			file.close();
 
 		} catch (IOException e) {
