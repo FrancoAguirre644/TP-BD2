@@ -1,0 +1,42 @@
+4. Un reporte con las cantidades de ventas agrupadas por tipo de producto (farmacia /
+perfumería). Todo esto debe ocurrir entre dos fechas pasadas como parámetros (fecha desde y
+fecha hasta) 
+
+db.venta.aggregate([
+  // Match between dates
+  { $match: { fecha: { $gte: "2021-01-01", $lte: "2021-06-01" } } },
+  
+  // Unpack each product from the each order's product as a new separate record
+  {"$unwind": {
+    "path": "$productos",
+  }},
+  
+  // group by product's type
+  {"$group": {
+    "_id": "$productos.producto.tipoDeProducto",
+    "cantidad": {"$sum": "$productos.cantidad"}
+  }},
+
+])
+
+-----------------------------------------------------------------------------------------------------
+
+5. Ranking de monto vendido, agrupado por producto y por sucursal. 
+
+
+db.venta.aggregate([
+  // Unpack each product from the each order's product as a new separate record
+  {"$unwind": {
+    "path": "$productos",
+  }},
+  
+  // group by sucursal and product
+  {"$group": {
+    "_id": { "id_": "$sucursal._id" , "producto": "$productos.producto.descripcion" },
+    "cantidad": {"$sum": "$productos.total"}
+  }},  
+  
+  // sort by sucursal and cantidad
+  { $sort : { "_id" : -1, "cantidad" : -1} },
+        
+])
