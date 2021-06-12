@@ -1,0 +1,13 @@
+db.venta.aggregate([
+  {"$unwind": {
+    "path": "$productos",
+  }},
+  
+  {"$group": {
+    "_id": { "id_": "$sucursal._id" , "producto": "$productos.producto.descripcion" },
+    "Cantidad_vendida_en_esta_sucursal": {"$sum": 1}
+  }},  
+  
+  { $sort : { "_id" : -1, "cantidad" : -1} },
+        
+])
