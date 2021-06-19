@@ -32,6 +32,7 @@ db.venta.aggregate([
   
   // group by sucursal and product
   {"$group": {
+    "_id": { "Sucursal": "$sucursal._id" , "producto": "$productos.producto.descripcion" },
     "totalProductoEnSucursal": {"$sum": "$productos.total"}
   }},  
   
