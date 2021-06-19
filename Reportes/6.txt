@@ -5,7 +5,7 @@ db.venta.aggregate([
   
   {"$group": {
     "_id": { "id_": "$sucursal._id" , "producto": "$productos.producto.descripcion" },
-    "Cantidad_vendida_en_esta_sucursal": {"$sum": 1}
+    "Cantidad_vendida_en_esta_sucursal": {"$sum": "$productos.cantidad"}
   }},  
   
   { $sort : { "Cantidad_vendida_en_esta_sucursal": -1} },
