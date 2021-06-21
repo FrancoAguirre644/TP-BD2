@@ -1,2 +1,9 @@
-[{ _id: 'De perfumeria', cantidad: 130 },
-{ _id: 'De farmacia', cantidad: 390 }]
+[{
+    "_id" : "De perfumeria",
+    "Cantidad de ventas del tipo de producto" : 46.0
+},
+{
+    "_id" : "De farmacia",
+    "Cantidad de ventas del tipo de producto" : 134.0
+}
+]

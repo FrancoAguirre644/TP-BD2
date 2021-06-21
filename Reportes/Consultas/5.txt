@@ -1,0 +1,19 @@
+5. Ranking de monto vendido, agrupado por producto y por sucursal. 
+
+
+db.venta.aggregate([
+  // Unpack each product from the each order's product as a new separate record
+  {"$unwind": {
+    "path": "$productos",
+  }},
+  
+  // group by sucursal and product
+  {"$group": {
+    "_id": { "Sucursal": "$sucursal._id" , "producto": "$productos.producto.descripcion" },
+    "totalProductoEnSucursal": {"$sum": "$productos.total"}
+  }},  
+  
+  // sort by sucursal and totalProductoEnSucursal
+  { $sort : { "totalProductoEnSucursal" : -1} },
+        
+])

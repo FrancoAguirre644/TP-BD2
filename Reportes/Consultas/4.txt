@@ -1,0 +1,20 @@
+4. Un reporte con las cantidades de ventas agrupadas por tipo de producto (farmacia /
+perfumería). Todo esto debe ocurrir entre dos fechas pasadas como parámetros (fecha desde y
+fecha hasta) 
+
+db.venta.aggregate([
+  // Match between dates
+  { $match: { fecha: { $gte: "2021-01-01", $lte: "2021-06-01" } } },
+  
+  // Unpack each product from the each order's product as a new separate record
+  {"$unwind": {
+    "path": "$productos",
+  }},
+  
+  // group by products type
+  {"$group": {
+    "_id": "$productos.producto.tipoDeProducto",
+    "Cantidad de ventas del tipo de producto": {"$sum": 1}
+  }},
+
+])

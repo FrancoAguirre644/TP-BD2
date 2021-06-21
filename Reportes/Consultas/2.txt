@@ -1,0 +1,5 @@
+2. Un reporte con las cantidades de ventas agrupadas por obras sociales y además considerar
+los privados (sin obra social) como un grupo mas. Todo esto debe ocurrir entre dos fechas
+pasadas como parámetros (fecha desde y fecha hasta).
+
+db.venta.aggregate([ { $match: { fecha: { $gte: "2021-01-01", $lte: "2021-06-01" } } }, { $group: { _id: "$cliente.obra social.nombre", Cantidad_de_ventas: { $sum: 1 } } } ] )
