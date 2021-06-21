@@ -1,0 +1,54 @@
+[{ _id: 
+   { id_Cliente: 14,
+     Nombre: 'Roberto',
+     Apellido: 'Gomez',
+     DNI: 42356798 },
+  'Total gastado': 152360 },
+{ _id: 
+   { id_Cliente: 11,
+     Nombre: 'Ariel',
+     Apellido: 'Rojas',
+     DNI: 42356798 },
+  'Total gastado': 113225 },
+{ _id: 
+   { id_Cliente: 16,
+     Nombre: 'Nicolas',
+     Apellido: 'Perez',
+     DNI: 26004223 },
+  'Total gastado': 77110 },
+{ _id: 
+   { id_Cliente: 13,
+     Nombre: 'Franco',
+     Apellido: 'Garcia',
+     DNI: 42356798 },
+  'Total gastado': 74060 },
+{ _id: 
+   { id_Cliente: 12,
+     Nombre: 'Lucas',
+     Apellido: 'Manso',
+     DNI: 42356798 },
+  'Total gastado': 65510 },
+{ _id: 
+   { id_Cliente: 10,
+     Nombre: 'Esteban',
+     Apellido: 'Gonzalez',
+     DNI: 42356798 },
+  'Total gastado': 51825 },
+{ _id: 
+   { id_Cliente: 15,
+     Nombre: 'Juliana',
+     Apellido: 'Gomez',
+     DNI: 39221583 },
+  'Total gastado': 50695 },
+{ _id: 
+   { id_Cliente: 17,
+     Nombre: 'Fabiana',
+     Apellido: 'Fernandez',
+     DNI: 18223442 },
+  'Total gastado': 45005 },
+{ _id: 
+   { id_Cliente: 18,
+     Nombre: 'Hernan',
+     Apellido: 'Castillo',
+     DNI: 37555423 },
+  'Total gastado': 28810 }]

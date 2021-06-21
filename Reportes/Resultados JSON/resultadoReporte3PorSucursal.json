@@ -1,6 +1,0 @@
-[{ _id: { Sucursal: 1, Domicilio: 'Calle 1' },
-  Total_de_su_cobranza: 189595 },
-{ _id: { Sucursal: 3, Domicilio: 'Calle 3' },
-  Total_de_su_cobranza: 246860 },
-{ _id: { Sucursal: 2, Domicilio: 'Calle 2' },
-  Total_de_su_cobranza: 198170 }]

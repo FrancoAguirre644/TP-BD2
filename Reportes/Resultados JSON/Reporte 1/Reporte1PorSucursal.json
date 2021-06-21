@@ -1,0 +1,6 @@
+[{ _id: { Sucursal: 2, Domicilio: 'Calle 2' },
+  Cantidad_de_ventas: 31 },
+{ _id: { Sucursal: 3, Domicilio: 'Calle 3' },
+  Cantidad_de_ventas: 31 },
+{ _id: { Sucursal: 1, Domicilio: 'Calle 1' },
+  Cantidad_de_ventas: 28 }]
